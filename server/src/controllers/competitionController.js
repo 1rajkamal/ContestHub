@@ -38,6 +38,23 @@ class CompetitionController {
   }
 
   /**
+   * POST /api/competitions/reset-demo
+   * Reset database back to clean demo seed state
+   */
+  async resetDemo(req, res, next) {
+    try {
+      const { seedData } = require('../../scripts/seed');
+      await seedData();
+      res.json({
+        success: true,
+        message: 'Demo state successfully reset to initial seed values.',
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  /**
    * GET /api/competitions/:id
    * Get single competition details with dynamic lifecycle & user participation status
    */

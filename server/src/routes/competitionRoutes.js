@@ -10,6 +10,7 @@ router.get('/', competitionController.getAllCompetitions);
 
 // Demo users for evaluator switching
 router.get('/demo-users', competitionController.getDemoUsers);
+router.post('/reset-demo', competitionController.resetDemo);
 
 // Single competition details
 router.get('/:id', validateObjectId('id'), competitionController.getCompetitionById);

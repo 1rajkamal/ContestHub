@@ -41,6 +41,7 @@ import UserSwitcherModal from '../components/Modals/UserSwitcherModal';
 
 export default function CompetitionDetailsScreen() {
   const { currentUser, setCurrentUser, setDemoUsers, t, showToast, toastMessage } = useApp();
+  const scrollViewRef = React.useRef(null);
 
   const [competition, setCompetition] = useState(null);
   const [winners, setWinners] = useState([]);
@@ -74,7 +75,14 @@ export default function CompetitionDetailsScreen() {
       let activeUserId = currentUser?._id;
       if (usersRes.data && usersRes.data.length > 0) {
         setDemoUsers(usersRes.data);
-        if (!currentUser?._id || !usersRes.data.some((u) => u._id === currentUser._id)) {
+        const urlUser = typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('user') : null;
+        if (urlUser === 'priya') {
+          const priya = usersRes.data.find((u) => u.name.includes('Priya')) || usersRes.data[1];
+          if (priya) {
+            setCurrentUser(priya);
+            activeUserId = priya._id;
+          }
+        } else if (!currentUser?._id || !usersRes.data.some((u) => u._id === currentUser._id)) {
           setCurrentUser(usersRes.data[0]);
           activeUserId = usersRes.data[0]._id;
         }
@@ -110,6 +118,38 @@ export default function CompetitionDetailsScreen() {
   useEffect(() => {
     loadData();
   }, [loadData]);
+
+  useEffect(() => {
+    if (Platform.OS === 'web' && typeof window !== 'undefined') {
+      const p = new URLSearchParams(window.location.search);
+      const modalParam = p.get('modal');
+      if (modalParam === 'submission') {
+        setActiveModal({ type: 'submission' });
+      } else if (modalParam === 'video') {
+        setActiveModal({
+          type: 'video',
+          data: {
+            title: 'Smt. Manju Dubey — Intro Video',
+            url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+            judgeName: 'Manju Dubey',
+          },
+        });
+      } else if (modalParam === 'switcher') {
+        setActiveModal({ type: 'userSwitcher' });
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (Platform.OS === 'web' && typeof window !== 'undefined' && !loading) {
+      const p = new URLSearchParams(window.location.search);
+      if (p.get('scroll') === 'bottom') {
+        setTimeout(() => {
+          scrollViewRef.current?.scrollTo({ y: 850, animated: false });
+        }, 500);
+      }
+    }
+  }, [loading]);
 
   // Pull-to-refresh
   const onRefresh = () => {
@@ -256,6 +296,7 @@ export default function CompetitionDetailsScreen() {
 
         {/* Scrollable Competition Details */}
         <ScrollView
+          ref={scrollViewRef}
           style={styles.scrollView}
           showsVerticalScrollIndicator={false}
           refreshControl={

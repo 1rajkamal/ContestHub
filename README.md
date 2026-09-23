@@ -7,6 +7,8 @@
 
 A full-stack, production-grade implementation of the **Feedants Competition Details Screen** technical assignment. This module serves real-time competition data, handles atomic participant capacity with strict concurrency guarantees, enforces date-driven lifecycle states, and faithfully reproduces the design reference (`Objective_Page.png`) in **React Native**.
 
+> 📄 **Official Technical Documentation (PDF):** [`Feedants_Competition_Module_Complete_Guide.pdf`](./Feedants_Competition_Module_Complete_Guide.pdf) — Complete illustrated architectural dossier with system workflows, capacity overflow diagrams, concurrency proofs, state machine lifecycles, and database schemas.
+
 ---
 
 ## ⚡ Quickstart (Run in 2 Minutes)

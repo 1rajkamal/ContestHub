@@ -4,7 +4,15 @@ import { translations } from '../constants/translations';
 const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
-  const [language, setLanguage] = useState('en'); // 'en' or 'hi'
+  const getInitialLang = () => {
+    if (typeof window !== 'undefined') {
+      const p = new URLSearchParams(window.location.search);
+      if (p.get('lang') === 'hi') return 'hi';
+    }
+    return 'en';
+  };
+
+  const [language, setLanguage] = useState(getInitialLang); // 'en' or 'hi'
   
   // Demo users allowing instant state switching for evaluation
   const initialDemoUsers = [
@@ -26,8 +34,16 @@ export const AppProvider = ({ children }) => {
     },
   ];
 
+  const getInitialUser = () => {
+    if (typeof window !== 'undefined') {
+      const p = new URLSearchParams(window.location.search);
+      if (p.get('user') === 'priya') return initialDemoUsers[1];
+    }
+    return initialDemoUsers[0];
+  };
+
   const [demoUsers, setDemoUsers] = useState(initialDemoUsers);
-  const [currentUser, setCurrentUser] = useState(initialDemoUsers[0]);
+  const [currentUser, setCurrentUser] = useState(getInitialUser);
   const [toastMessage, setToastMessage] = useState(null);
 
   const toggleLanguage = useCallback((lang) => {
