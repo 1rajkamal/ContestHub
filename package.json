@@ -1,0 +1,16 @@
+{
+  "name": "contesthub-feedants-module",
+  "version": "1.0.0",
+  "description": "Feedants Competition Details Module - Functional Full-Stack Architecture",
+  "scripts": {
+    "server:install": "cd server && npm install",
+    "server:start": "cd server && npm start",
+    "server:test": "cd server && npm run test:concurrency",
+    "mobile:install": "cd mobile && npm install",
+    "mobile:web": "cd mobile && npm run web",
+    "mobile:android": "cd mobile && npm run android",
+    "mobile:ios": "cd mobile && npm run ios"
+  },
+  "author": "Feedants Full-Stack Engineering Candidate",
+  "license": "ISC"
+}

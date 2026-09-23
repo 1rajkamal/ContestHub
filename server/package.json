@@ -1,0 +1,29 @@
+{
+  "name": "feedants-competition-server",
+  "version": "1.0.0",
+  "description": "Feedants Competition Details Module - REST API Backend with Atomic Concurrency Protection",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "seed": "node scripts/seed.js",
+    "test:concurrency": "node tests/concurrency.test.js"
+  },
+  "keywords": [
+    "feedants",
+    "competition",
+    "express",
+    "mongodb",
+    "concurrency"
+  ],
+  "author": "Feedants Full-Stack Engineering Candidate",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongodb-memory-server": "^9.2.0",
+    "mongoose": "^8.3.1",
+    "morgan": "^1.10.0"
+  }
+}
